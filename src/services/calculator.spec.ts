@@ -7,6 +7,16 @@ import {
   calculateRegressionB,
 } from "./calculator";
 
+function logResult(
+  tolerance: number,
+  expectedResult: number,
+  receivedResult: number
+) {
+  console.log("Expected result: " + expectedResult);
+  console.log("Received result: " + receivedResult);
+  console.log("Tolerance: " + tolerance * 100 + "%");
+}
+
 describe("sum", () => {
   it("should return the correct value from the sum of the elements from a list", () => {
     // arrange
@@ -40,58 +50,130 @@ describe("multiplication", () => {
 
 // Linear correlation and regression tests
 
-const tolerance = 0.1;
-const n = 12;
+describe("calculate :: example 1", () => {
+  const tolerance = 0.006;
+  const n = 12;
 
-const xi = [60, 58, 73, 51, 54, 75, 48, 72, 75, 83, 62, 52];
-const yi = [80, 62, 70, 83, 62, 92, 79, 88, 54, 82, 64, 69];
+  const xi = [60, 58, 73, 51, 54, 75, 48, 72, 75, 83, 62, 52];
+  const yi = [80, 62, 70, 83, 62, 92, 79, 88, 54, 82, 64, 69];
 
-describe("linear correlation", () => {
-  it("should return the correct value for rxy", () => {
-    // arrange
+  describe("linear correlation", () => {
+    it("should return the correct value for rxy", () => {
+      // arrange
 
-    const expectedResult = 0.169;
+      const expectedResult = 0.169;
 
-    // act
+      // act
 
-    const currentResult = calculateLinearCorrelation(n, xi, yi);
+      const currentResult = calculateLinearCorrelation(n, xi, yi);
 
-    // assert
+      // assert
 
-    expect(Math.abs(currentResult - expectedResult)).toBeLessThanOrEqual(
-      expectedResult * tolerance
-    );
+      expect(Math.abs(currentResult - expectedResult)).toBeLessThanOrEqual(
+        expectedResult * tolerance
+      );
+
+      logResult(tolerance, expectedResult, currentResult);
+    });
+  });
+
+  describe("linear regression", () => {
+    it("should return the correct value for regression A", () => {
+      // arrange
+
+      const expectedResult = 0.173;
+
+      // act
+
+      const currentResult = calculateRegressionA(n, xi, yi);
+
+      // assert
+
+      expect(Math.abs(currentResult - expectedResult)).toBeLessThanOrEqual(
+        expectedResult * tolerance
+      );
+
+      logResult(tolerance, expectedResult, currentResult);
+    });
+    it("should return the correct value for regression B", () => {
+      // arrange
+
+      const expectedResult = 62.694;
+
+      // act
+      const currentResult = calculateRegressionB(n, xi, yi);
+
+      // assert
+
+      expect(Math.abs(currentResult - expectedResult)).toBeLessThanOrEqual(
+        expectedResult * tolerance
+      );
+
+      logResult(tolerance, expectedResult, currentResult);
+    });
   });
 });
 
-describe("linear regression", () => {
-  it("should return the correct value for regression A", () => {
-    // arrange
+describe("calculate :: example 2", () => {
+  const n = 5;
+  const tolerance = 0.0001;
 
-    const expectedResult = 0.173;
+  const xi = [2, 3, 4, 5, 4];
+  const yi = [48, 50, 56, 52, 43];
 
-    // act
+  describe("linear correlation", () => {
+    it("should return the correct value for rxy", () => {
+      // arrange
 
-    const currentResult = calculateRegressionA(n, xi, yi);
+      const expectedResult = 0.254925;
 
-    // assert
+      // act
 
-    expect(Math.abs(currentResult - expectedResult)).toBeLessThanOrEqual(
-      expectedResult * tolerance
-    );
+      const currentResult = calculateLinearCorrelation(n, xi, yi);
+
+      // assert
+
+      expect(Math.abs(currentResult - expectedResult)).toBeLessThanOrEqual(
+        expectedResult * tolerance
+      );
+
+      logResult(tolerance, expectedResult, currentResult);
+    });
   });
-  it("should return the correct value for regression B", () => {
-    // arrange
 
-    const expectedResult = 62.75;
+  describe("linear regression", () => {
+    it("should return the correct value for regression A", () => {
+      // arrange
 
-    // act
-    const currentResult = calculateRegressionB(n, xi, yi);
+      const expectedResult = 1.076923;
 
-    // assert
+      // act
 
-    expect(Math.abs(currentResult - expectedResult)).toBeLessThanOrEqual(
-      expectedResult * tolerance
-    );
+      const currentResult = calculateRegressionA(n, xi, yi);
+
+      // assert
+
+      expect(Math.abs(currentResult - expectedResult)).toBeLessThanOrEqual(
+        expectedResult * tolerance
+      );
+
+      logResult(tolerance, expectedResult, currentResult);
+    });
+    it("should return the correct value for regression B", () => {
+      // arrange
+
+      const expectedResult = 45.92308;
+
+      // act
+      const currentResult = calculateRegressionB(n, xi, yi);
+
+      // assert
+
+      expect(Math.abs(currentResult - expectedResult)).toBeLessThanOrEqual(
+        expectedResult * tolerance
+      );
+
+      logResult(tolerance, expectedResult, currentResult);
+    });
   });
 });

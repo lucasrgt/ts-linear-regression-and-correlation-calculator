@@ -27,7 +27,7 @@ export function calculateLinearCorrelation(
 
   const finalResult = getNumeratorResult(n, xi, yi) / getDenominatorResult();
 
-  return parseFloat(finalResult.toFixed(3));
+  return finalResult;
 }
 
 export function calculateRegressionA(n: number, xi: number[], yi: number[]) {
@@ -38,9 +38,11 @@ export function calculateRegressionA(n: number, xi: number[], yi: number[]) {
 
   const finalResult = numeratorResult / denominatorResult;
 
-  return parseFloat(finalResult.toFixed(3));
+  return finalResult;
 }
 
 export function calculateRegressionB(n: number, xi: number[], yi: number[]) {
-  return (sum(yi) - calculateRegressionA(n, xi, yi) * sum(xi)) / n;
+  const finalResult = (sum(yi) - calculateRegressionA(n, xi, yi) * sum(xi)) / n;
+
+  return finalResult;
 }
