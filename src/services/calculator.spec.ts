@@ -50,8 +50,9 @@ describe("multiplication", () => {
 
 // Linear correlation and regression tests
 
+const tolerance = 0.0001;
+
 describe("calculate :: example 1", () => {
-  const tolerance = 0.006;
   const n = 12;
 
   const xi = [60, 58, 73, 51, 54, 75, 48, 72, 75, 83, 62, 52];
@@ -116,7 +117,6 @@ describe("calculate :: example 1", () => {
 
 describe("calculate :: example 2", () => {
   const n = 5;
-  const tolerance = 0.0001;
 
   const xi = [2, 3, 4, 5, 4];
   const yi = [48, 50, 56, 52, 43];
