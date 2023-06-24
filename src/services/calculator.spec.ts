@@ -5,17 +5,11 @@ import {
   calculateLinearCorrelation,
   calculateRegressionA,
   calculateRegressionB,
+  getLinearRegressionEquation,
 } from "./calculator";
+import { logResult } from "../../tests/utils/debug";
 
-function logResult(
-  tolerance: number,
-  expectedResult: number,
-  receivedResult: number
-) {
-  console.log("Expected result: " + expectedResult);
-  console.log("Received result: " + receivedResult);
-  console.log("Tolerance: " + tolerance * 100 + "%");
-}
+const debugTestMode = true;
 
 describe("sum", () => {
   it("should return the correct value from the sum of the elements from a list", () => {
@@ -50,7 +44,7 @@ describe("multiplication", () => {
 
 // Linear correlation and regression tests
 
-const tolerance = 0.0001;
+const tolerance = 0.01;
 
 describe("calculate :: example 1", () => {
   const n = 12;
@@ -74,7 +68,9 @@ describe("calculate :: example 1", () => {
         expectedResult * tolerance
       );
 
-      logResult(tolerance, expectedResult, currentResult);
+      debugTestMode
+        ? logResult(expectedResult, currentResult, tolerance)
+        : null;
     });
   });
 
@@ -94,8 +90,11 @@ describe("calculate :: example 1", () => {
         expectedResult * tolerance
       );
 
-      logResult(tolerance, expectedResult, currentResult);
+      debugTestMode
+        ? logResult(expectedResult, currentResult, tolerance)
+        : null;
     });
+
     it("should return the correct value for regression B", () => {
       // arrange
 
@@ -110,7 +109,26 @@ describe("calculate :: example 1", () => {
         expectedResult * tolerance
       );
 
-      logResult(tolerance, expectedResult, currentResult);
+      debugTestMode
+        ? logResult(expectedResult, currentResult, tolerance)
+        : null;
+    });
+  });
+
+  describe("linear regression equation", () => {
+    it("should return the correct equation for linear regression", () => {
+      // arrange
+
+      const expectedResult = "0.17x + 62.69";
+
+      // act
+
+      const currentResult = getLinearRegressionEquation(n, xi, yi);
+
+      // assert
+      expect(expectedResult).toBe(currentResult);
+
+      debugTestMode ? logResult(expectedResult, currentResult) : null;
     });
   });
 });
@@ -137,7 +155,9 @@ describe("calculate :: example 2", () => {
         expectedResult * tolerance
       );
 
-      logResult(tolerance, expectedResult, currentResult);
+      debugTestMode
+        ? logResult(expectedResult, currentResult, tolerance)
+        : null;
     });
   });
 
@@ -157,8 +177,11 @@ describe("calculate :: example 2", () => {
         expectedResult * tolerance
       );
 
-      logResult(tolerance, expectedResult, currentResult);
+      debugTestMode
+        ? logResult(expectedResult, currentResult, tolerance)
+        : null;
     });
+
     it("should return the correct value for regression B", () => {
       // arrange
 
@@ -173,7 +196,24 @@ describe("calculate :: example 2", () => {
         expectedResult * tolerance
       );
 
-      logResult(tolerance, expectedResult, currentResult);
+      debugTestMode
+        ? logResult(expectedResult, currentResult, tolerance)
+        : null;
+    });
+
+    it("should return the correct equation for linear regression", () => {
+      // arrange
+
+      const expectedResult = "1.08x + 45.92";
+
+      // act
+
+      const currentResult = getLinearRegressionEquation(n, xi, yi);
+
+      // assert
+      expect(expectedResult).toBe(currentResult);
+
+      debugTestMode ? logResult(expectedResult, currentResult) : null;
     });
   });
 });

@@ -46,3 +46,15 @@ export function calculateRegressionB(n: number, xi: number[], yi: number[]) {
 
   return finalResult;
 }
+
+export function getLinearRegressionEquation(
+  n: number,
+  xi: number[],
+  yi: number[]
+): string {
+  const equation = `${parseFloat(
+    calculateRegressionA(n, xi, yi).toFixed(2)
+  )}x + ${parseFloat(calculateRegressionB(n, xi, yi).toFixed(2))}`;
+
+  return equation;
+}
